@@ -1,9 +1,14 @@
 <template>
+
   <div class="card text-center">
     <NuxtLink :to="`/e/${event.permalink}`">
-      <img :src="getPrincipalEventImage(event)" class="thumb rounded-md mb-4" alt="event image" />
-      <div class="font-medium mb-4">{{ event.title }}</div>
-      <!-- <p>{{ event.subtitle }}</p> -->
+      <img
+        :src="getPrincipalEventImage(event)"
+        class="thumb rounded-md"
+        alt="event image"
+      />
+      <div class="font-medium my-4">{{ event.title }}</div>
+      <!-- <Icon icon="mdi-light:home" /> -->
       <p>Dauer: {{ event.default_duration }} Bewertung: {{ event.rating }}</p>
       <p>Preis: {{ event.default_price.formatted }}</p>
     </NuxtLink>
@@ -28,7 +33,7 @@ export default {
 </script>
 
 <style scoped>
-    .thumb {
-        margin: 0 auto;
-    }
+.thumb {
+  margin: 0 auto;
+}
 </style>

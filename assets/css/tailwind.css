@@ -7,7 +7,7 @@ body {
 }
 
 h1 {
-    font-size: 2rem;
+    @apply text-2xl font-bold;
 }
 
 h2 {
@@ -16,7 +16,6 @@ h2 {
 @layer components {
 
   .card {
-    @apply m-4 p-3 rounded-lg bg-white shadow-sm h-full;
-    max-width: 50%;
+    @apply m-4 p-3 rounded-lg bg-white shadow-md h-full;
   }
 }

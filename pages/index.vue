@@ -1,30 +1,105 @@
 <template>
   <div>
-    <h2 class="text-center mb-4">Top Erlebnisse in Deiner Nähe</h2>
-    <div class="grid grid-cols-4 gap-5">
-      <div v-for="event in events" :key="event.id">
-        <!-- Event card component -->
+    <h1 class="text-center mb-4">Top Erlebnisse in Deiner Nähe</h1>
+
+    <!-- Filter options -->
+    <div class="flex justify-center gap-4 mb-4">
+      <select v-model="selectedCity" class="p-2 border border-gray-300 rounded">
+        <option value="">All Cities</option>
+        <option v-for="city in uniqueCities" :key="city" :value="city">
+          {{ city }}
+        </option>
+      </select>
+
+      <select
+        v-model="selectedCategory"
+        class="p-2 border border-gray-300 rounded"
+      >
+        <option value="">All Categories</option>
+        <option
+          v-for="category in categories"
+          :key="category"
+          :value="category"
+        >
+          {{ category }}
+        </option>
+      </select>
+    </div>
+
+    <!-- Show some Event cards -->
+    <div class="grid grid-cols-5 gap-2">
+      <div
+        v-for="(event, index) in filteredEvents.slice(0, 10)"
+        :key="event.id"
+      >
         <EventCard :event="event" />
       </div>
     </div>
+    <!-- <div v-for="event in filteredEvents" :key="event.id">
+        <EventCard :event="event" />
+      </div>
+    </div> -->
   </div>
 </template>
 
 <script>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, computed } from 'vue'
 
 export default {
   setup() {
     const events = ref([])
+    const selectedCity = ref('')
+    const selectedCategory = ref('')
+    const categories = ref([])
 
     onMounted(async () => {
-      // import event data
+      // Import event data
       const eventData = require('@/data/events.json')
       events.value = eventData
+
+      // Extract categories from events
+      const slugSet = new Set()
+      eventData.forEach((event) => {
+        if (event.categories && Array.isArray(event.categories)) {
+          event.categories.forEach((category) => {
+            slugSet.add(category.slug)
+          })
+        }
+      })
+      categories.value = Array.from(slugSet)
+    })
+
+    // Extract unique cities from events
+    const uniqueCities = computed(() => [
+      ...new Set(events.value.map((event) => event.city)),
+    ])
+
+    // Filter events based on selected city and category
+    const filteredEvents = computed(() => {
+      let filtered = events.value
+
+      if (selectedCity.value) {
+        filtered = filtered.filter((event) => event.city === selectedCity.value)
+      }
+
+      if (selectedCategory.value) {
+        filtered = filtered.filter((event) =>
+          event.categories.some(
+            (category) => category.slug === selectedCategory.value
+          )
+        )
+      }
+
+      return filtered
     })
 
     return {
       events,
+      selectedCity,
+      selectedCategory,
+      uniqueCities,
+      categories,
+      filteredEvents,
     }
   },
 }
