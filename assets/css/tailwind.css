@@ -1,0 +1,22 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  @apply bg-gray-50;
+}
+
+h1 {
+    font-size: 2rem;
+}
+
+h2 {
+    font-size: 1.5rem;
+}
+@layer components {
+
+  .card {
+    @apply m-4 p-3 rounded-lg bg-white shadow-sm h-full;
+    max-width: 50%;
+  }
+}
