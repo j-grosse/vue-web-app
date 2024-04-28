@@ -1,7 +1,7 @@
 <template>
 
   <div class="card text-center">
-    <NuxtLink :to="`/e/${event.permalink}`">
+    <NuxtLink :to="`/events/${event.permalink}`">
       <img
         :src="getPrincipalEventImage(event)"
         class="thumb rounded-md"

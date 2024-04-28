@@ -32,8 +32,19 @@ export default {
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
-  modules: ["@nuxtjs/tailwindcss"],
+  modules: ['@nuxtjs/tailwindcss'],
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {},
+
+  generate: {
+    routes() {
+      const events = require('@/data/events.json')
+
+      return events.map((event) => ({
+        route: `/events/${event.permalink}`,
+        payload: event,
+      }))
+    },
+  },
 }

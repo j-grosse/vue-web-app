@@ -44,7 +44,6 @@
 
 <script>
 import { ref, onMounted, computed } from 'vue'
-
 export default {
   setup() {
     const events = ref([])
