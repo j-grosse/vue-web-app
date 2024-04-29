@@ -1,44 +1,57 @@
 <template>
-  <div v-if="event" class="container">
-    <NuxtLink to="/">
-      <button
-        class="bg-gray-500 hover:bg-gray-300 text-white py-2 px-4 m-4 rounded"
-      >
-        go back
-      </button>
-    </NuxtLink>
-    <h1 class="text-center mb-4">Event Details</h1>
-    <h1 class="title">{{ event.title }}</h1>
-    <p class="description">{{ event.subtitle }}</p>
-
-    <div class="courseImages flex">
-      <div class="principalImage">
-        <img :src="principalImage" alt="event image" />
-      </div>
-      <div class="grid grid-cols-2 gap-4">
-        <div
-          v-for="image in altImages"
-          :key="image.id"
-          class="nonPrincipalImages"
+  <div class="custom-container">
+    <div v-if="event">
+      <NuxtLink to="/">
+        <button
+          class="bg-gray-400 hover:bg-gray-300 text-white py-2 px-4 my-2 rounded"
         >
-          <img :src="image.thumb" alt="alt images" />
+          zurück
+        </button>
+      </NuxtLink>
+      <h1 class="text-center mb-4">Event Details</h1>
+
+      <div class="px-4">
+        <h2 class="my-4">{{ event.title }}</h2>
+        <p class="mb-8">{{ event.subtitle }}</p>
+
+        <!-- Course images  -->
+        <div class="grid grid-cols-2 gap-4 my-4">
+          <div>
+            <img
+              :src="principalImage"
+              class="rounded-lg w-full"
+              alt="event image"
+            />
+          </div>
+          <div class="grid grid-cols-2 gap-4">
+            <div
+              v-for="(image) in altImages.slice(0, 4)"
+              :key="image.id"
+            >
+              <img :src="image.thumb" class="rounded-lg" alt="alt images" />
+            </div>
+          </div>
+        </div>
+        <div class="content">
+          <ul class="details">
+            <h2>Kursbeschreibung</h2>
+            <p class="my-4">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Aspernatur accusamus laboriosam possimus impedit non neque exercitationem fugiat atque dolorum, sunt placeat eveniet, sit illum omnis quas ea, fuga maiores inventore.</p>
+            <li>Stadt: {{ event.city }}</li>
+            <li>Adresse: {{ event.address.formatted }}</li>
+            <li>Dauer: {{ event.default_duration / 60}} h</li>
+            <li>Preis: {{ event.default_price.formatted }}</li>
+            <li>Rating: {{ event.rating }}</li>
+            <li>Anbieter: {{ event.supplier }}</li>
+            <li>Gesamtbewertungen: {{ event.totalRating }}</li>
+            <li>
+              Tags:
+              <span v-for="tag in event.tags" :key="tag.slug">{{
+                tag.name
+              }}</span>
+            </li>
+          </ul>
         </div>
       </div>
-    </div>
-    <div class="content">
-      <ul class="details">
-        <li>Adresse: {{ event.address.formatted }}</li>
-        <li>Stadt: {{ event.city }}</li>
-        <li>Dauer: {{ event.default_duration }} Minuten</li>
-        <li>Preis: {{ event.default_price.formatted }}</li>
-        <li>Rating: {{ event.rating }}</li>
-        <li>Anbieter: {{ event.supplier }}</li>
-        <li>Gesamtbewertungen: {{ event.totalRating }}</li>
-        <li>
-          Tags:
-          <span v-for="tag in event.tags" :key="tag.slug">{{ tag.name }}</span>
-        </li>
-      </ul>
     </div>
   </div>
 </template>
