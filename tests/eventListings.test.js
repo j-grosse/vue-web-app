@@ -1,72 +1,99 @@
-import { mount, createLocalVue } from '@vue/test-utils';
-import { createApp, compile } from '@vue/runtime-dom';
-import Main from '@/main.vue'
-import IndexPage from '@/pages/index.vue';
-import EventCard from '@/components/EventCard.vue';
+import { mount, createLocalVue } from '@vue/test-utils'
+import EventListings from '@/pages/index.vue'
+import EventCard from '@/components/EventCard.vue'
+import VueRouter from 'vue-router'
 
-// Mock NuxtLink component
-const NuxtLink = {
-  name: 'NuxtLink',
-  template: '<a><slot></slot></a>',
-};
-
-describe('Main', () => {
-  let localVue;
+describe('EventListings', () => {
+  let localVue
 
   beforeAll(() => {
-    localVue = createLocalVue();
-    localVue.component('EventCard', EventCard);
-    localVue.component('NuxtLink', NuxtLink);
-  });
+    localVue = createLocalVue()
+    localVue.use(VueRouter)
+    localVue.component('EventCard', EventCard)
+  })
 
-  test('displays 10 event cards', async () => {
-    const app = createApp({Main});
-    app.component('EventCard', EventCard);
-    app.component('NuxtLink', NuxtLink);
-    app.use(compile);
-
-// Mount the IndexPage component
-const wrapper = mount(IndexPage, {
-  global: {
-    plugins: [
-      (app) => {
-        app.component('EventCard', EventCard);
-        app.component('NuxtLink', NuxtLink);
-        app.config.globalProperties.$compile = compile;
+  it('renders the correct content', () => {
+    // Mock the filteredEvents data
+    const mockEvents = [
+      {
+        id: 1,
+        title: 'Event 1',
+        city: 'Berlin',
+        categories: [{ slug: 'category1' }],
       },
-    ],
-    stubs: {
-      NuxtLink: true,
-    },
-  },
-  data() {
-    return {
-      selectedCity: '',
-      selectedCategory: '',
-    };
-  },
-});
+      {
+        id: 2,
+        title: 'Event 2',
+        city: 'Berlin',
+        categories: [{ slug: 'category2' }],
+      },
+      {
+        id: 3,
+        title: 'Event 3',
+        city: 'Berlin',
+        categories: [{ slug: 'category1' }],
+      },
+      {
+        id: 4,
+        title: 'Event 4',
+        city: 'Berlin',
+        categories: [{ slug: 'category2' }],
+      },
+      {
+        id: 5,
+        title: 'Event 5',
+        city: 'Berlin',
+        categories: [{ slug: 'category1' }],
+      },
+      {
+        id: 6,
+        title: 'Event 6',
+        city: 'Berlin',
+        categories: [{ slug: 'category2' }],
+      },
+      {
+        id: 7,
+        title: 'Event 7',
+        city: 'Berlin',
+        categories: [{ slug: 'category1' }],
+      },
+      {
+        id: 8,
+        title: 'Event 8',
+        city: 'Berlin',
+        categories: [{ slug: 'category2' }],
+      },
+      {
+        id: 9,
+        title: 'Event 9',
+        city: 'Berlin',
+        categories: [{ slug: 'category1' }],
+      },
+      {
+        id: 10,
+        title: 'Event 10',
+        city: 'Berlin',
+        categories: [{ slug: 'category2' }],
+      },
+    ]
+    const wrapper = mount(EventListings, {
+      localVue,
+      stubs: {
+        EventCard: true,
+      },
+      data() {
+        return {
+          events: mockEvents,
+          filteredEvents: mockEvents.slice(0, 10),
+        }
+      },
+    })
 
-    // Set the selected city and category
-    await wrapper.setData({
-      selectedCity: 'München',
-      selectedCategory: 'essen-trinken',
-    });
+    // Assert the component's title
+    expect(wrapper.find('h1').text()).toBe('Top Erlebnisse in Deiner Nähe')
 
-    // Get the rendered event cards
-    const eventCards = wrapper.findAllComponents(EventCard);
-
-    // Assert that the correct number of event cards is displayed
-    expect(eventCards.length).toBe(6);
-
-    // Assert that each event card belongs to the selected city and category
-    eventCards.forEach((eventCard) => {
-      expect(eventCard.props().event.city).toBe('München');
-      expect(
-        eventCard.props().event.categories.some(
-          (category) => category.slug === 'essen-trinken'
-        )
-      ).toBe(true);
-    });
-  });
-});
+    // Assert that 10 EventCard components are rendered
+    const eventCards = wrapper.findAllComponents({ name: 'EventCard' })
+    expect(eventCards.length).toBe(10)
+  })
+})

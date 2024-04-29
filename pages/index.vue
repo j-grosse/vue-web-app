@@ -42,10 +42,8 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import { ref, onMounted, computed } from 'vue'
-export default {
-  setup() {
     const events = ref([])
     const selectedCity = ref('')
     const selectedCategory = ref('')
@@ -92,14 +90,4 @@ export default {
       return filtered
     })
 
-    return {
-      events,
-      selectedCity,
-      selectedCategory,
-      uniqueCities,
-      categories,
-      filteredEvents,
-    }
-  },
-}
 </script>
