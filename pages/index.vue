@@ -28,7 +28,7 @@
 
     <!-- Show some Event cards -->
     <div class="grid grid-cols-5 gap-2">
-      <div
+      <div :data-testid="`event-card-${event.id}`"
         v-for="event in filteredEvents.slice(0, 10)"
         :key="event.id"
         class="min-w-[8rem]"
