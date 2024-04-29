@@ -1,5 +1,4 @@
 <template>
-
   <div class="card text-center">
     <NuxtLink :to="`/events/${event.permalink}`">
       <img

@@ -37,14 +37,4 @@ export default {
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {},
 
-  generate: {
-    routes() {
-      const events = require('@/data/events.json')
-
-      return events.map((event) => ({
-        route: `/events/${event.permalink}`,
-        payload: event,
-      }))
-    },
-  },
 }

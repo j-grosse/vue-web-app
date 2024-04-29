@@ -2,7 +2,7 @@
   <div v-if="event" class="container">
     <NuxtLink to="/">
       <button
-        class="bg-gray-500 hover:bg-gray-300 text-white  py-2 px-4 m-4 rounded"
+        class="bg-gray-500 hover:bg-gray-300 text-white py-2 px-4 m-4 rounded"
       >
         go back
       </button>
@@ -65,7 +65,6 @@ onMounted(async () => {
   permalink.value = route.value.params.permalink
   event.value = events.value.find((e) => e.permalink === permalink.value)
 })
-
 </script>
 
 <style scoped></style>
