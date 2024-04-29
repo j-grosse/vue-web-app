@@ -29,65 +29,60 @@
     <!-- Show some Event cards -->
     <div class="grid grid-cols-5 gap-2">
       <div
-        v-for="(event, index) in filteredEvents.slice(0, 10)"
+        v-for="(event) in filteredEvents.slice(0, 10)"
         :key="event.id"
       >
         <EventCard :event="event" />
       </div>
     </div>
-    <!-- <div v-for="event in filteredEvents" :key="event.id">
-        <EventCard :event="event" />
-      </div>
-    </div> -->
   </div>
 </template>
 
 <script setup>
 import { ref, onMounted, computed } from 'vue'
-    const events = ref([])
-    const selectedCity = ref('')
-    const selectedCategory = ref('')
-    const categories = ref([])
 
-    onMounted(async () => {
-      // Import event data
-      const eventData = require('@/data/events.json')
-      events.value = eventData
+const eventData = require('@/data/events.json')
+const events = ref([])
+const selectedCity = ref('')
+const selectedCategory = ref('')
+const categories = ref([])
 
-      // Extract categories from events
-      const slugSet = new Set()
-      eventData.forEach((event) => {
-        if (event.categories && Array.isArray(event.categories)) {
-          event.categories.forEach((category) => {
-            slugSet.add(category.slug)
-          })
-        }
+onMounted(async () => {
+  events.value = eventData
+
+  // Extract categories from events
+  const slugSet = new Set()
+  eventData.forEach((event) => {
+    if (event.categories && Array.isArray(event.categories)) {
+      event.categories.forEach((category) => {
+        slugSet.add(category.slug)
       })
-      categories.value = Array.from(slugSet)
-    })
+    }
+  })
+  categories.value = Array.from(slugSet)
+})
 
-    // Extract unique cities from events
-    const uniqueCities = computed(() => [
-      ...new Set(events.value.map((event) => event.city)),
-    ])
+// Extract unique cities from events
+const uniqueCities = computed(() => [
+  ...new Set(events.value.map((event) => event.city)),
+])
 
-    // Filter events based on selected city and category
-    const filteredEvents = computed(() => {
-      let filtered = events.value
+// Filter events based on selected city and category
+const filteredEvents = computed(() => {
+  let filtered = events.value
 
-      if (selectedCity.value) {
-        filtered = filtered.filter((event) => event.city === selectedCity.value)
-      }
+  if (selectedCity.value) {
+    filtered = filtered.filter((event) => event.city === selectedCity.value)
+  }
 
-      if (selectedCategory.value) {
-        filtered = filtered.filter((event) =>
-          event.categories.some(
-            (category) => category.slug === selectedCategory.value
-          )
-        )
-      }
+  if (selectedCategory.value) {
+    filtered = filtered.filter((event) =>
+      event.categories.some(
+        (category) => category.slug === selectedCategory.value
+      )
+    )
+  }
 
-      return filtered
-    })
-
+  return filtered
+})
 </script>
