@@ -1,9 +1,9 @@
 <template>
-  <div>
-    <h1 class="text-center mb-4">Top Erlebnisse in Deiner Nähe</h1>
+  <div class="custom-container">
+    <h1 class="text-center">Top Erlebnisse in Deiner Nähe</h1>
 
     <!-- Filter options -->
-    <div class="flex justify-center gap-4 mb-4">
+    <div class="flex justify-center gap-4 my-8">
       <select v-model="selectedCity" class="p-2 border border-gray-300 rounded">
         <option value="">All Cities</option>
         <option v-for="city in uniqueCities" :key="city" :value="city">
@@ -29,8 +29,9 @@
     <!-- Show some Event cards -->
     <div class="grid grid-cols-5 gap-2">
       <div
-        v-for="(event) in filteredEvents.slice(0, 10)"
+        v-for="event in filteredEvents.slice(0, 10)"
         :key="event.id"
+        class="min-w-[8rem]"
       >
         <EventCard :event="event" />
       </div>
