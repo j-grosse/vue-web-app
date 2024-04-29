@@ -7,15 +7,14 @@ body {
 }
 
 h1 {
-    @apply text-2xl font-bold;
+  @apply text-2xl font-bold;
 }
 
 h2 {
-    font-size: 1.5rem;
+  @apply text-xl;
 }
 @layer components {
-
-  .card {
-    @apply m-4 p-3 rounded-lg bg-white shadow-md h-full;
+  .custom-container {
+    @apply container mx-auto p-8;
   }
 }
