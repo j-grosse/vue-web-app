@@ -14,20 +14,19 @@
   </div>
 </template>
 
-<script>
-export default {
-  props: {
-    event: {
-      type: Object,
-      required: true,
-    },
+<script setup>
+import { defineProps } from 'vue'
+
+const props = defineProps({
+  event: {
+    type: Object,
+    required: true,
   },
-  methods: {
-    getPrincipalEventImage(event) {
-      const principalImage = event.images.find((image) => image.isPrincipal)
-      return principalImage ? principalImage.thumb : ''
-    },
-  },
+})
+
+const getPrincipalEventImage = (event) => {
+  const principalImage = event.images.find((image) => image.isPrincipal)
+  return principalImage ? principalImage.thumb : ''
 }
 </script>
 
