@@ -1,16 +1,16 @@
 <template>
   <div class="custom-container">
     <h1 class="text-center">Top Erlebnisse in Deiner Nähe</h1>
-
     <!-- Filter options -->
     <div class="flex justify-center gap-4 my-8">
+      <!-- Select city filter -->
       <select v-model="selectedCity" class="p-2 border border-gray-300 rounded">
         <option value="">All Cities</option>
         <option v-for="city in uniqueCities" :key="city" :value="city">
           {{ city }}
         </option>
       </select>
-
+      <!-- Select category filter -->
       <select
         v-model="selectedCategory"
         class="p-2 border border-gray-300 rounded"
@@ -43,7 +43,11 @@
 </template>
 
 <script setup>
-import { ref, onMounted, computed } from 'vue'
+import { ref, onMounted, computed, watch  } from 'vue'
+import { useRouter, useRoute } from '@nuxtjs/composition-api'
+
+const route = useRoute()
+const router = useRouter()
 
 const eventData = require('@/data/events.json')
 const events = ref([])
@@ -54,7 +58,7 @@ const categories = ref([])
 onMounted(async () => {
   events.value = eventData
 
-  // Extract and sort categories from events
+  // Extract and sort unique categories from events
   const slugSet = new Set()
   eventData.forEach((event) => {
     if (event.categories && Array.isArray(event.categories)) {
@@ -67,6 +71,9 @@ onMounted(async () => {
     a.localeCompare(b)
   )
   categories.value = sortedCategories
+
+    // Set the initial selected city and category from the route
+    setSelectedFromRoute()
 })
 
 // Extract and sort unique cities from events
@@ -91,6 +98,28 @@ const filteredEvents = computed(() => {
     )
   }
 
+  // Update the URL to reflect the route change
+  router.push({
+  path: route.value.fullPath,
+  query: { 
+    city: selectedCity.value || undefined,
+    category: selectedCategory.value  || undefined,
+  }
+})
+
   return filtered
 })
+// Set the selected city and category based on route query parameters
+watch(
+  () => route.value.query,
+  () => {
+    setSelectedFromRoute()
+  }
+)
+
+function setSelectedFromRoute() {
+  selectedCity.value = route.value.query.city || ''
+  selectedCategory.value = route.value.query.category || ''
+}
+
 </script>
