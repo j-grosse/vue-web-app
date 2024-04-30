@@ -27,8 +27,11 @@
     </div>
 
     <!-- Show some Event cards -->
-    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-2">
-      <div :data-testid="`event-card-${event.id}`"
+    <div
+      class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-2"
+    >
+      <div
+        :data-testid="`event-card-${event.id}`"
         v-for="event in filteredEvents.slice(0, 10)"
         :key="event.id"
         class="min-w-44"
@@ -51,7 +54,7 @@ const categories = ref([])
 onMounted(async () => {
   events.value = eventData
 
-  // Extract categories from events
+  // Extract and sort categories from events
   const slugSet = new Set()
   eventData.forEach((event) => {
     if (event.categories && Array.isArray(event.categories)) {
@@ -60,13 +63,17 @@ onMounted(async () => {
       })
     }
   })
-  categories.value = Array.from(slugSet)
+  const sortedCategories = Array.from(slugSet).sort((a, b) =>
+    a.localeCompare(b)
+  )
+  categories.value = sortedCategories
 })
 
-// Extract unique cities from events
-const uniqueCities = computed(() => [
-  ...new Set(events.value.map((event) => event.city)),
-])
+// Extract and sort unique cities from events
+const uniqueCities = computed(() => {
+  const cities = [...new Set(events.value.map((event) => event.city))]
+  return cities.sort((a, b) => a.localeCompare(b))
+})
 
 // Filter events based on selected city and category
 const filteredEvents = computed(() => {
