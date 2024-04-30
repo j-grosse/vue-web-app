@@ -15,7 +15,7 @@
         <p class="mb-8">{{ event.subtitle }}</p>
 
         <!-- Course images  -->
-        <div class="grid grid-cols-2 gap-4 my-4">
+        <div class="grid grid-cols-2 gap-2 md:gap-4 my-4">
           <div>
             <img
               :src="principalImage"
@@ -23,11 +23,8 @@
               alt="event image"
             />
           </div>
-          <div class="grid grid-cols-2 gap-4">
-            <div
-              v-for="(image) in altImages.slice(0, 4)"
-              :key="image.id"
-            >
+          <div class="grid grid-cols-2 gap-2 md:gap-4">
+            <div v-for="image in altImages.slice(0, 4)" :key="image.id">
               <img :src="image.thumb" class="rounded-lg" alt="alt images" />
             </div>
           </div>
@@ -35,19 +32,24 @@
         <div class="content">
           <ul class="details">
             <h2>Kursbeschreibung</h2>
-            <p class="my-4">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Aspernatur accusamus laboriosam possimus impedit non neque exercitationem fugiat atque dolorum, sunt placeat eveniet, sit illum omnis quas ea, fuga maiores inventore.</p>
-            <li>Stadt: {{ event.city }}</li>
-            <li>Adresse: {{ event.address.formatted }}</li>
-            <li>Dauer: {{ event.default_duration / 60}} h</li>
+            <p class="my-4">
+              Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+              Aspernatur accusamus laboriosam possimus impedit non neque
+              exercitationem fugiat atque dolorum, sunt placeat eveniet, sit
+              illum omnis quas ea, fuga maiores inventore.
+            </p>
+            <li>Dauer: {{ event.default_duration / 60 }} h</li>
+            <li>Rating: {{ event.totalRating }}</li>
             <li>Preis: {{ event.default_price.formatted }}</li>
-            <li>Rating: {{ event.rating }}</li>
+            <br />
             <li>Anbieter: {{ event.supplier }}</li>
-            <li>Gesamtbewertungen: {{ event.totalRating }}</li>
+            <li>Stadt: {{ event.city }}</li>
+            <br />
             <li>
               Tags:
-              <span v-for="tag in event.tags" :key="tag.slug">{{
-                tag.name
-              }}</span>
+              <span v-for="tag in event.tags" :key="tag.slug"
+                >{{ tag.name }},
+              </span>
             </li>
           </ul>
         </div>
