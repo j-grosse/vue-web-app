@@ -17,4 +17,7 @@ h2 {
   .custom-container {
     @apply container mx-auto p-8;
   }
+  .custom-select {
+    @apply p-2 border border-gray-300 rounded-lg;
+  }
 }

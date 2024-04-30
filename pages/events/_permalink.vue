@@ -39,7 +39,7 @@
               illum omnis quas ea, fuga maiores inventore.
             </p>
             <li>Dauer: {{ event.default_duration / 60 }} h</li>
-            <li>Rating: {{ event.totalRating }}</li>
+            <li>Rating: {{ event.rating }}</li>
             <li>Preis: {{ event.default_price.formatted }}</li>
             <br />
             <li>Anbieter: {{ event.supplier }}</li>
