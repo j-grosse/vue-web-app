@@ -27,11 +27,11 @@
     </div>
 
     <!-- Show some Event cards -->
-    <div class="grid grid-cols-5 gap-2">
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-2">
       <div :data-testid="`event-card-${event.id}`"
         v-for="event in filteredEvents.slice(0, 10)"
         :key="event.id"
-        class="min-w-[8rem]"
+        class="min-w-44"
       >
         <EventCard :event="event" />
       </div>

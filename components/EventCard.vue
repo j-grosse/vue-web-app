@@ -7,7 +7,7 @@
     <NuxtLink :to="`/events/${event.permalink}`">
         <img
           :src="getPrincipalEventImage(event)"
-          class="m-0 auto rounded-md"
+          class="mx-auto rounded-md"
           alt="event image"
         />
         <div data-testid="cypress-title" class="font-medium my-4">{{ event.title }}</div>
