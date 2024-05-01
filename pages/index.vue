@@ -1,5 +1,9 @@
 <template>
   <div class="custom-container">
+    <!-- Hero image section -->
+    <div class="custom-container">
+      <img class="bg-cover bg-center" src="@/assets/images/hero.png" />
+    </div>
     <h1 class="text-center">Top Erlebnisse in Deiner Nähe</h1>
     <!-- Filter options -->
     <div class="flex justify-center gap-4 my-8">

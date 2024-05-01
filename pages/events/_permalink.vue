@@ -8,10 +8,8 @@
           zurück
         </button>
       </NuxtLink>
-      <h1 class="text-center mb-4">Event Details</h1>
-
       <div class="px-4">
-        <h2 class="my-4">{{ event.title }}</h2>
+        <h1 class="my-4">{{ event.title }}</h1>
         <p class="mb-8">{{ event.subtitle }}</p>
 
         <!-- Course images  -->
@@ -29,15 +27,40 @@
             </div>
           </div>
         </div>
-        <div class="content">
-          <ul class="details">
-            <h2>Kursbeschreibung</h2>
+        <div>
+          <ul class="mt-4">
+            <h1>Kursbeschreibung</h1>
             <p class="my-4">
               Lorem ipsum dolor sit, amet consectetur adipisicing elit.
               Aspernatur accusamus laboriosam possimus impedit non neque
               exercitationem fugiat atque dolorum, sunt placeat eveniet, sit
               illum omnis quas ea, fuga maiores inventore.
             </p>
+            <p class="font-bold">
+              Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+            </p>
+            <ul>
+              <li>
+                <p class="my-4">
+                  Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+                  Aspernatur accusamus laboriosam possimus impedit non neque
+                  exercitationem fugiat atque dolorum, sunt placeat eveniet, sit
+                  illum omnis quas ea, fuga maiores inventore.
+                </p>
+              </li>
+              <p class="font-bold">
+                Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+              </p>
+              <li>
+                <p class="my-4">
+                  Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+                  Aspernatur accusamus laboriosam possimus impedit non neque
+                  exercitationem fugiat atque dolorum, sunt placeat eveniet, sit
+                  illum omnis quas ea, fuga maiores inventore.
+                </p>
+              </li>
+            </ul>
+
             <li>Dauer: {{ event.default_duration / 60 }} h</li>
             <li>Rating: {{ event.rating }}</li>
             <li>Preis: {{ event.default_price.formatted }}</li>
