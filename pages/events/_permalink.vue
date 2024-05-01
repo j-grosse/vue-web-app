@@ -1,14 +1,8 @@
 <template>
   <div class="custom-container">
     <div v-if="event">
-      <NuxtLink to="/">
-        <button
-          class="bg-gray-400 hover:bg-gray-300 text-white py-2 px-4 my-2 rounded"
-        >
-          zurück
-        </button>
-      </NuxtLink>
       <div class="px-4">
+          <NuxtLink class="custom-button" to="/"> zurück </NuxtLink>
         <h1 class="my-4">{{ event.title }}</h1>
         <p class="mb-8">{{ event.subtitle }}</p>
 

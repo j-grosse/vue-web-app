@@ -1,10 +1,7 @@
 <template>
   <div class="custom-container">
     <!-- Hero image section -->
-    <div class="custom-container">
-      <img class="bg-cover bg-center" src="@/assets/images/hero.png" />
-    </div>
-    <h1 class="text-center">Top Erlebnisse in Deiner Nähe</h1>
+      <img class="bg-cover bg-center mx-auto" src="@/assets/images/hero.png" />
     <!-- Filter options -->
     <div class="flex justify-center gap-4 my-8">
       <!-- Select city filter -->
@@ -33,7 +30,7 @@
         </option>
       </select>
     </div>
-
+    <h1 class="text-center text-left">Top Erlebnisse in Deiner Nähe</h1>
     <!-- Show some Event cards -->
     <div
       class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-2"
