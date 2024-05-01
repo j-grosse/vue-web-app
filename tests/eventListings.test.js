@@ -1,6 +1,6 @@
 import { mount, createLocalVue } from '@vue/test-utils'
 import EventListings from '@/pages/index.vue'
-import EventCard from '@/components/EventCard.vue'
+import EventCard from '~/components/EventCard.vue'
 import VueRouter from 'vue-router'
 
 describe('EventListings', () => {

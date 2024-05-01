@@ -1,5 +1,5 @@
 import { mount, createLocalVue } from '@vue/test-utils'
-import EventCard from '@/components/EventCard.vue'
+import EventCard from '~/components/EventCard.vue'
 import VueRouter from 'vue-router'
 import EventDetailPage from '@/pages/events/_permalink.vue'
 
@@ -13,7 +13,11 @@ describe('EventCard', () => {
     // Create a mock router instance with the dynamic route
     router = new VueRouter({
       routes: [
-        { path: '/events/:permalink', component: EventDetailPage, name: 'event-detail' },
+        {
+          path: '/events/:permalink',
+          component: EventDetailPage,
+          name: 'event-detail',
+        },
       ],
     })
   })
