@@ -35,6 +35,9 @@
 </template>
 
 <script setup>
+import IconStar from '@/components/IconStar.vue'
+import IconClock from '@/components/IconClock.vue'
+import IconEuro from '@/components/IconEuro.vue'
 
 const props = defineProps({
   event: {
