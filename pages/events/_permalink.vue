@@ -2,7 +2,7 @@
   <div class="custom-container">
     <div v-if="event">
       <div class="px-4">
-          <NuxtLink class="custom-button" to="/"> zurück </NuxtLink>
+        <NuxtLink class="custom-button" to="/"> zurück </NuxtLink>
         <h1 class="my-4">{{ event.title }}</h1>
         <p class="mb-8">{{ event.subtitle }}</p>
 
@@ -21,7 +21,7 @@
             </div>
           </div>
         </div>
-        <div>
+        <div class="grid grid-cols-2">
           <ul class="mt-4">
             <h1>Kursbeschreibung</h1>
             <p class="my-4">
@@ -30,9 +30,7 @@
               exercitationem fugiat atque dolorum, sunt placeat eveniet, sit
               illum omnis quas ea, fuga maiores inventore.
             </p>
-            <p class="font-bold">
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-            </p>
+            <p class="font-bold">Ablauf</p>
             <ul>
               <li>
                 <p class="my-4">
@@ -42,9 +40,7 @@
                   illum omnis quas ea, fuga maiores inventore.
                 </p>
               </li>
-              <p class="font-bold">
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-              </p>
+              <p class="font-bold">Für wen geeignet</p>
               <li>
                 <p class="my-4">
                   Lorem ipsum dolor sit, amet consectetur adipisicing elit.
@@ -55,14 +51,28 @@
               </li>
             </ul>
 
-            <li>Dauer: {{ event.default_duration / 60 }} h</li>
-            <li>Rating: {{ event.rating }}</li>
-            <li>Preis: {{ event.default_price.formatted }}</li>
+            <div class="text-left mx-2">
+              <div class="flex gap-4">
+                <div class="flex">
+                  <IconClock class="mr-2" />
+                  <p>{{ event.default_duration / 60 }} h</p>
+                </div>
+                <div class="flex">
+                  <IconStar class="mr-2" />
+                  <p class="">{{ event.rating }}</p>
+                </div>
+              </div>
+              <div class="flex">
+                <IconEuro class="mr-2" />
+                <p>{{ event.default_price.formatted }}</p>
+              </div>
+            </div>
+
             <br />
             <li>Anbieter: {{ event.supplier }}</li>
-            <li>Stadt: {{ event.city }}</li>
+            <li>in {{ event.city }}</li>
             <br />
-            <li>
+            <li v-if="event.tags">
               Tags:
               <span v-for="tag in event.tags" :key="tag.slug"
                 >{{ tag.name }},

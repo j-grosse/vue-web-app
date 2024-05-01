@@ -1,10 +1,12 @@
 <template>
-  <div class="container">
-    <div
-      class="text-center word-break-word rounded-lg bg-gray-100 shadow-md mx-auto m-4 p-3 text-xs sm:text-sm xl:text-lg"
-    >
-      <p data-testid="cypress-city" class="font-bold mb-2">{{ event.city }}</p>
-      <NuxtLink :to="`/events/${event.permalink}`">
+  <NuxtLink :to="`/events/${event.permalink}`">
+    <div class="container">
+      <div
+        class="text-center word-break-word rounded-lg bg-gray-100 shadow-md hover:bg-gray-200 mx-auto m-4 p-3 text-xs sm:text-sm xl:text-lg"
+      >
+        <p data-testid="cypress-city" class="font-bold mb-2">
+          {{ event.city }}
+        </p>
         <img
           :src="getPrincipalEventImage(event)"
           class="mx-auto rounded-md"
@@ -29,9 +31,9 @@
             <p>{{ event.default_price.formatted }}</p>
           </div>
         </div>
-      </NuxtLink>
+      </div>
     </div>
-  </div>
+  </NuxtLink>
 </template>
 
 <script setup>
