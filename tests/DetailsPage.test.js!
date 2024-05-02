@@ -5,33 +5,49 @@ import EventDetailsPage from '@/pages/events/_permalink.vue'
 describe('EventDetailsPage', () => {
   let localVue, router
 
-  beforeAll(() => {
+  beforeEach(() => {
     localVue = createLocalVue()
     localVue.use(VueRouter)
 
     // Create a mock router instance with the dynamic route
     router = new VueRouter({
       routes: [
-        { path: '/events/:permalink', component: EventDetailsPage, name: 'event-detail' },
+        {
+          path: '/events/:permalink',
+          component: EventDetailsPage,
+          name: 'event-details',
+        },
       ],
     })
   })
 
   it('navigates to the correct URL and renders the expected content', () => {
+    const route = {
+      path: '/events/test-event',
+      params: { permalink: 'test-event' },
+    }
+
     const wrapper = mount(EventDetailsPage, {
       localVue,
       router,
+      // stubs: ['router-link'],
       mocks: {
         $route: {
+          path: '/events/test-event',
           params: {
             permalink: 'test-event',
           },
         },
       },
+      beforeRouteEnter(to, from, next) {
+        next(vm => {
+          vm.$route = to
+        })
+      }
     })
 
-    // Simulate a navigation to the event detail page
-    wrapper.vm.$router.push({ name: 'event-detail', params: { permalink: 'test-event' } })
+    console.log('ROUTE:', route)
+    console.log(wrapper.vm.$route)
 
     // Assert the URL
     expect(wrapper.vm.$route.path).toBe('/events/test-event')

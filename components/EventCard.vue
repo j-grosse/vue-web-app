@@ -1,5 +1,5 @@
 <template>
-  <NuxtLink :to="`/events/${event.permalink}`">
+  <NuxtLink v-if="event" :to="`/events/${event.permalink}`">
     <div class="container">
       <div
         class="text-center word-break-word rounded-lg bg-gray-100 shadow-md hover:bg-gray-200 mx-auto m-4 p-3 text-xs sm:text-sm xl:text-lg"
@@ -13,7 +13,7 @@
           alt="event image"
         />
         <div data-testid="cypress-title" class="font-medium my-4">
-          {{ event.title }}
+          <p>{{ event.title }}</p>
         </div>
         <div class="text-left mx-2">
           <div class="flex gap-4">

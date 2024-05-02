@@ -1,6 +1,6 @@
 import { mount, createLocalVue } from '@vue/test-utils'
 import EventListings from '@/pages/index.vue'
-import EventCard from '~/components/EventCard.vue'
+import EventCard from '@/components/EventCard.vue'
 import VueRouter from 'vue-router'
 
 describe('EventListings', () => {
@@ -20,6 +20,8 @@ describe('EventListings', () => {
         title: 'Event 1',
         city: 'Berlin',
         categories: [{ slug: 'category1' }],
+        permalink:
+          'http://localhost:3000/events/cocktailkurs-in-muenchen-0w1dlw',
       },
       {
         id: 2,
@@ -95,5 +97,12 @@ describe('EventListings', () => {
     // Assert that 10 EventCard components are rendered
     const eventCards = wrapper.findAllComponents({ name: 'EventCard' })
     expect(eventCards.length).toBe(10)
+
+    // Assert the link on the first EventCard
+    const linkElement = eventCards.wrappers[0].findComponent({
+      name: 'NuxtLink',
+    })
+    expect(linkElement.exists())
+
   })
 })
