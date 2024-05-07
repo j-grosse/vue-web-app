@@ -1,0 +1,60 @@
+import { mount, createLocalVue } from '@vue/test-utils'
+import EventCard from '@/components/EventCard.vue'
+import VueRouter from 'vue-router'
+
+const event = {
+  id: 9,
+  permalink: 'test-event',
+  title: 'Test Event',
+  city: 'Berlin',
+  categories: [{ slug: 'category1' }],
+  default_duration: 120,
+  rating: 4.5,
+  default_price: {
+    formatted: '€50',
+  },
+  images: [
+    {
+      isPrincipal: true,
+      thumb: 'test-image.jpg',
+    },
+  ],
+}
+
+describe('EventCard', () => {
+  it('renders the correct content and navigates to the correct URL', () => {
+    const wrapper = mount(EventCard, {
+      props: {
+        event: event,
+      },
+    })
+
+    expect(wrapper.exists()).toBe(true)
+
+    // Assert the event title
+    // const titleElement = wrapper.get('[data-testid="cypress-title"] > p')
+    // expect(titleElement.text()).toBe('Test Event')
+
+    // Assert the event city
+    // expect(wrapper.get('.font-bold'))
+    // const cityElement = wrapper.get('.font-bold')
+    // expect(cityElement.text()).toBe('Berlin')
+
+    // // Assert the event rating
+    // const ratingElement = wrapper.find('div.flex > div:nth-child(2) > p')
+    // expect(ratingElement.text()).toBe('4.5')
+
+    // // Assert the event price
+    // const priceElement = wrapper.find('div.flex > p')
+    // expect(priceElement.text()).toBe('€50')
+
+    // // Assert the event image
+    // const imageElement = wrapper.find('img')
+    // expect(imageElement.attributes('src')).toBe('test-event.jpg')
+
+    // Assert the link
+    const linkElement = wrapper.findComponent({ name: 'NuxtLink' })
+    expect(linkElement.exists()).toBe(true)
+    expect(linkElement.attributes('to')).toBe('/events/test-event')
+  })
+})

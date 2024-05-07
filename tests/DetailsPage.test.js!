@@ -1,0 +1,59 @@
+import { mount, createLocalVue } from '@vue/test-utils'
+import VueRouter from 'vue-router'
+import EventDetailsPage from '@/pages/events/_permalink.vue'
+
+describe('EventDetailsPage', () => {
+  let localVue, router
+
+  beforeEach(() => {
+    localVue = createLocalVue()
+    localVue.use(VueRouter)
+
+    // Create a mock router instance with the dynamic route
+    router = new VueRouter({
+      routes: [
+        {
+          path: '/events/:permalink',
+          component: EventDetailsPage,
+          name: 'event-details',
+        },
+      ],
+    })
+  })
+
+  it('navigates to the correct URL and renders the expected content', () => {
+    const route = {
+      path: '/events/test-event',
+      params: { permalink: 'test-event' },
+    }
+
+    const wrapper = mount(EventDetailsPage, {
+      localVue,
+      router,
+      // stubs: ['router-link'],
+      mocks: {
+        $route: {
+          path: '/events/test-event',
+          params: {
+            permalink: 'test-event',
+          },
+        },
+      },
+      beforeRouteEnter(to, from, next) {
+        next(vm => {
+          vm.$route = to
+        })
+      }
+    })
+
+    console.log('ROUTE:', route)
+    console.log(wrapper.vm.$route)
+
+    // Assert the URL
+    expect(wrapper.vm.$route.path).toBe('/events/test-event')
+
+    // Assert the content
+    expect(wrapper.text()).toContain('Event Details')
+    expect(wrapper.text()).toContain('Preis')
+  })
+})
